@@ -1,10 +1,6 @@
 # Pachico\Magoo
 
-[![Build Status](https://travis-ci.org/pachico/magoo.svg?branch=master)](https://travis-ci.org/pachico/magoo) [![codecov.io](https://codecov.io/github/pachico/magoo/coverage.svg?branch=master)](https://codecov.io/github/pachico/magoo?branch=master)
-[![Codacy Badge](https://api.codacy.com/project/badge/grade/226d0d2e91354a8eac06569a115c056c)](https://www.codacy.com/app/pachico/magoo)
-[![Codacy Badge](https://api.codacy.com/project/badge/coverage/226d0d2e91354a8eac06569a115c056c)](https://www.codacy.com/app/pachico/magoo)
-[![Code Climate](https://codeclimate.com/github/pachico/magoo/badges/gpa.svg)](https://codeclimate.com/github/pachico/magoo)
-[![SensioLabsInsight](https://insight.sensiolabs.com/projects/fc76535f-a2c6-41b9-91df-4176da6d60d1/big.png)](https://insight.sensiolabs.com/projects/fc76535f-a2c6-41b9-91df-4176da6d60d1)
+[![Testing](https://github.com/yupmin/magoo/actions/workflows/testing.yml/badge.svg)](https://github.com/yupmin/magoo/actions/workflows/testing.yml)
 
 original package [pachico/magoo](https://github.com/pachico/magoo) is abandoned. this is for php 7.1,8.0,8.1
 
