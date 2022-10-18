@@ -1,32 +1,33 @@
 name: Testing
 
 on:
-    push:
-        branches:
-            - 'master'
-            - 'feature/**'
+  push:
+    branches:
+      - 'master'
+      - 'feature/**'
 
 jobs:
-    testing:
-        strategy:
-            matrix:
-                php-version: ['7.4', '8.0', '8.1']
-        env:
-            extensions: apcu, bcmath, gd, redis-phpredis/phpredis@5.3.5, sqlite, pdo_sqlite
-        steps:
-            - name: Setup PHP with tools
-              uses: shivammathur/setup-php@v2
-              with:
-                  php-version: ${{ matrix.php-version }}
-                  extensions: ${{ env.extensions }}
-            - name: Checkout
-              uses: actions/checkout@v3
-              with:
-                  # Disabling shallow clone is recommended for improving relevancy of reporting
-                  fetch-depth: 0
-            - name: Install Dependencies
-              run: composer install --prefer-dist
-            - name: Check code style
-              run: composer sniff
-            - name: Testing
-              run: composer test
+  runs-on: ubuntu-latest
+  testing:
+    strategy:
+      matrix:
+        php-version: ['7.4', '8.0', '8.1']
+    env:
+      extensions: apcu, bcmath, gd, redis-phpredis/phpredis@5.3.5, sqlite, pdo_sqlite
+    steps:
+      - name: Setup PHP with tools
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php-version }}
+          extensions: ${{ env.extensions }}
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          # Disabling shallow clone is recommended for improving relevancy of reporting
+          fetch-depth: 0
+      - name: Install Dependencies
+        run: composer install --prefer-dist
+      - name: Check code style
+        run: composer sniff
+      - name: Testing
+        run: composer test
