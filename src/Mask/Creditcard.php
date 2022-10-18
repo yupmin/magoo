@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Pachico\Magoo\Mask;
 
 use Pachico\Magoo\Validator\ValidatorInterface;
@@ -12,21 +14,11 @@ use Pachico\Magoo\Validator\Luhn;
  */
 class Creditcard implements MaskInterface
 {
-    /**
-     * @var string
-     */
-    protected $replacement = '*';
+    protected string $replacement = '*';
 
-    /**
-     * @var ValidatorInterface
-     */
-    protected $luhnValidator;
+    protected ValidatorInterface $luhnValidator;
 
-    /**
-     * @param array $params
-     * @param ValidatorInterface $luhnValidator
-     */
-    public function __construct(array $params = [], ValidatorInterface $luhnValidator = null)
+    public function __construct(array $params = [], ?ValidatorInterface $luhnValidator = null)
     {
         if (isset($params['replacement']) && is_string($params['replacement'])) {
             $this->replacement = $params['replacement'];
@@ -41,7 +33,7 @@ class Creditcard implements MaskInterface
      *
      * {@inheritDoc}
      */
-    public function mask($string)
+    public function mask(string $string): string
     {
         $regex = '/(?:\d[ \t-]*?){13,19}/m';
         $matches = [];

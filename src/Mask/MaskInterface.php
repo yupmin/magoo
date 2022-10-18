@@ -8,15 +8,10 @@ namespace Pachico\Magoo\Mask;
  */
 interface MaskInterface
 {
-    /**
-     * @param array $params
-     */
     public function __construct(array $params = []);
 
     /**
      * Masks a given string
-     *
-     * @param string $string
      */
-    public function mask($string);
+    public function mask(string $string): string;
 }

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Pachico\Magoo\Mask;
 
 /**
@@ -8,16 +10,9 @@ namespace Pachico\Magoo\Mask;
  */
 class Email implements MaskInterface
 {
+    protected ?string $replacementLocal = null;
 
-    /**
-     * @var string
-     */
-    protected $replacementLocal = null;
-
-    /**
-     * @var string
-     */
-    protected $replacementDomain = null;
+    protected ?string $replacementDomain = null;
 
     /**
      * {@inheritDoc}
@@ -37,12 +32,7 @@ class Email implements MaskInterface
         }
     }
 
-    /**
-     * @param string $match
-     *
-     * @return string
-     */
-    protected function maskIndividualEmailMatch($match)
+    protected function maskIndividualEmailMatch(string $match): string
     {
         $matchReplacement = $match;
 
@@ -70,7 +60,7 @@ class Email implements MaskInterface
     /**
      * {@inheritDoc}
      */
-    public function mask($string)
+    public function mask(string $string): string
     {
         $regex = "/(?:[a-z0-9!#$%&'*+=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+=?^_`{|}~-]+)*"
             . "|\"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*\")"

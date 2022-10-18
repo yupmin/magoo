@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Pachico\Magoo;
 
 /**
@@ -8,14 +10,8 @@ namespace Pachico\Magoo;
  */
 class MagooArray
 {
-    /**
-     * @var MaskManagerInterface
-     */
-    protected $maskManager;
+    protected MaskManagerInterface $maskManager;
 
-    /**
-     * @param MaskManagerInterface $maskManager
-     */
     public function __construct(MaskManagerInterface $maskManager)
     {
         $this->maskManager = $maskManager;
@@ -48,12 +44,7 @@ class MagooArray
         return $input;
     }
 
-    /**
-     * @param array $input
-     *
-     * @return array
-     */
-    protected function maskMultiDimensionalStructure(array $input)
+    protected function maskMultiDimensionalStructure(array $input): array
     {
         foreach ($input as &$value) {
             $value = $this->maskIndividualValue($value);
@@ -62,23 +53,13 @@ class MagooArray
         return $input;
     }
 
-    /**
-     * @return MaskManagerInterface
-     */
-    public function getMaskManager()
+    public function getMaskManager(): MaskManagerInterface
     {
         return $this->maskManager;
     }
 
-    /**
-     * @param array $input
-     *
-     * @return array
-     */
-    public function getMasked(array $input)
+    public function getMasked(array $input): array
     {
-        $output = $this->maskMultiDimensionalStructure($input);
-
-        return $output;
+        return $this->maskMultiDimensionalStructure($input);
     }
 }

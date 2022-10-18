@@ -2,7 +2,6 @@
 
 namespace Pachico\Magoo;
 
-use \InvalidArgumentException;
 use Pachico\Magoo\Mask\MaskInterface;
 
 /**
@@ -31,9 +30,7 @@ interface MaskManagerInterface
      *
      * @param string $input Input string to be masked
      *
-     * @throws InvalidArgumentException
-     *
      * @return string Masked string
      */
-    public function getMasked($input);
+    public function getMasked(string $input);
 }

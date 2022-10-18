@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Pachico\MagooTest;
 
 use Pachico\Magoo\Magoo;
@@ -7,10 +9,9 @@ use Pachico\Magoo\MagooArray;
 use Pachico\MagooTest\Dummy;
 use stdClass;
 
-class MagooArrayTest extends \PHPUnit_Framework_TestCase
+class MagooArrayTest extends TestCase
 {
-    
-    public function testGetMaskedRedactsArrayCorrectly()
+    public function testGetMaskedRedactsArrayCorrectly(): void
     {
         // Arrange
         $object = new stdClass();
@@ -81,7 +82,7 @@ class MagooArrayTest extends \PHPUnit_Framework_TestCase
         $this->assertSame($expectedOutputArray, $outputArray);
     }
 
-    public function testGetMaskManagerReturnsManager()
+    public function testGetMaskManagerReturnsManager(): void
     {
         // Arrange
         $magoo = new Magoo();

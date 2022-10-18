@@ -1,19 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Pachico\MagooTest\Mask;
 
 use Pachico\Magoo\Mask\MaskInterface;
 
 class CustomMask implements MaskInterface
 {
-    /**
-     * @var string
-     */
-    protected $replacement = '*';
+    protected string $replacement = '*';
 
-    /**
-     * @param array $params
-     */
     public function __construct(array $params = [])
     {
         if (isset($params['replacement']) && is_string($params['replacement'])) {
@@ -21,10 +17,7 @@ class CustomMask implements MaskInterface
         }
     }
 
-    /**
-     * @param string $string
-     */
-    public function mask($string)
+    public function mask(string $string): string
     {
         return str_replace('foo', $this->replacement, $string);
     }

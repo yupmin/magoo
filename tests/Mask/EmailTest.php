@@ -1,46 +1,63 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Pachico\MagooTest\Mask;
 
 use Pachico\Magoo\Mask\Email;
+use Pachico\MagooTest\TestCase;
 
-class EmailTest extends \PHPUnit_Framework_TestCase
+class EmailTest extends TestCase
 {
+    private Email $sut;
 
-    /**
-     * @var Email
-     */
-    private $sut;
-
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->sut = new Email(['localReplacement' => '*', 'domainReplacement' => '*']);
     }
 
-    public function dataProviderInputExpectedOutput()
+    public function dataProviderInputExpectedOutput(): array
     {
         return [
-            ['To donate write to ted@crilly.com, please',
-                'To donate write to ***@**********, please'],
-            ['In case of dragons, report to dougal@mcguire.net', 'In case of dragons, report to ******@***********'],
-            ['Booz expert: jack@hackett.org', 'Booz expert: ****@***********'],
-            ['To get more sandwitches, mail me at mrs@doyle.co.uk',
-                'To get more sandwitches, mail me at ***@***********'],
-            ['To report any of the above, contact me at bishop@brennan.biz',
-                'To report any of the above, contact me at ******@***********'],
-            ['This is just a random string', 'This is just a random string'],
-            ['It almost looks like an email: asdas@', 'It almost looks like an email: asdas@'],
-            ['This is almost interesting: foo.bar.com', 'This is almost interesting: foo.bar.com'],
+            [
+                'To donate write to ted@crilly.com, please',
+                'To donate write to ***@**********, please'
+            ],
+            [
+                'In case of dragons, report to dougal@mcguire.net',
+                'In case of dragons, report to ******@***********',
+            ],
+            [
+                'Booz expert: jack@hackett.org',
+                'Booz expert: ****@***********',
+            ],
+            [
+                'To get more sandwitches, mail me at mrs@doyle.co.uk',
+                'To get more sandwitches, mail me at ***@***********',
+            ],
+            [
+                'To report any of the above, contact me at bishop@brennan.biz',
+                'To report any of the above, contact me at ******@***********',
+            ],
+            [
+                'This is just a random string',
+                'This is just a random string',
+            ],
+            [
+                'It almost looks like an email: asdas@',
+                'It almost looks like an email: asdas@',
+            ],
+            [
+                'This is almost interesting: foo.bar.com',
+                'This is almost interesting: foo.bar.com',
+            ],
         ];
     }
 
     /**
      * @dataProvider dataProviderInputExpectedOutput
-     *
-     * @param string $input
-     * @param string $expectedOutput
      */
-    public function testMaskRedactsCorrectly($input, $expectedOutput)
+    public function testMaskRedactsCorrectly(string $input, string $expectedOutput): void
     {
         // Arrange
         // Act
@@ -49,7 +66,7 @@ class EmailTest extends \PHPUnit_Framework_TestCase
         $this->assertSame($expectedOutput, $output);
     }
 
-    public function testReplacementsAreUsedForRedacting()
+    public function testReplacementsAreUsedForRedacting(): void
     {
         $this->sut = new Email(['localReplacement' => '*']);
         $this->assertSame($this->sut->mask('bernard@black.com'), '*******@black.com');

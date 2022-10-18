@@ -1,39 +1,43 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Pachico\MagooTest\Mask;
 
 use Pachico\Magoo\Mask\Regex;
+use Pachico\MagooTest\TestCase;
 
-class RegexTest extends \PHPUnit_Framework_TestCase
+class RegexTest extends TestCase
 {
+    protected Regex $sut;
 
-    /**
-     * @var Regex
-     */
-    protected $sut;
-
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->sut = new Regex(['replacement' => '*', 'regex' => '(\d+)']);
     }
 
-    public function dataProviderIntputExpectedOutput()
+    public function dataProviderIntputExpectedOutput(): array
     {
         return [
-            ['This string has 12345 digits, which is more than 6789',
-                'This string has ***** digits, which is more than ****'],
-            ['1-2-3-4-5-6-7-8-9-0', '*-*-*-*-*-*-*-*-*-*'],
-            ['I have no digits', 'I have no digits']
+            [
+                'This string has 12345 digits, which is more than 6789',
+                'This string has ***** digits, which is more than ****'
+            ],
+            [
+                '1-2-3-4-5-6-7-8-9-0',
+                '*-*-*-*-*-*-*-*-*-*',
+            ],
+            [
+                'I have no digits',
+                'I have no digits',
+            ]
         ];
     }
 
     /**
      * @dataProvider dataProviderIntputExpectedOutput
-     *
-     * @param string $input
-     * @param string $expectedOutput
      */
-    public function testMaskRedactsCorrectly($input, $expectedOutput)
+    public function testMaskRedactsCorrectly(string $input, string $expectedOutput): void
     {
         // Arrange
         // Act

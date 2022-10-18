@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Pachico\Magoo\Validator;
 
 /**
@@ -11,13 +13,13 @@ class Luhn implements ValidatorInterface
     /**
      * {@inheritDoc}
      */
-    public function isValid($input)
+    public function isValid($input): bool
     {
         if (!is_numeric($input)) {
             return false;
         }
 
-        $numericString = (string) preg_replace('/\D/', '', $input);
+        $numericString = (string) preg_replace('/\D/', '', (string)$input);
         $sum = 0;
         $numDigits = strlen($numericString) - 1;
         $parity = $numDigits % 2;

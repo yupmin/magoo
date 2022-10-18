@@ -1,20 +1,15 @@
 <?php
 
-namespace Pachico\Magoo;
+declare(strict_types=1);
 
-use \InvalidArgumentException;
+namespace Pachico\Magoo;
 
 /**
  * Magoo will mask sensitive data from strings.
  */
 class Magoo implements MaskManagerInterface
 {
-    /**
-     * Contains masks that will be executed
-     *
-     * @var array
-     */
-    protected $masks = [];
+    protected array $masks = [];
 
     /**
      * Adds (or rewrites) Mask\CreditCard mask
@@ -23,7 +18,7 @@ class Magoo implements MaskManagerInterface
      *
      * @return Magoo
      */
-    public function pushCreditCardMask($replacement = '*')
+    public function pushCreditCardMask(string $replacement = '*')
     {
         $this->masks['mask-creditcard'] = new Mask\Creditcard(
             [
@@ -42,7 +37,7 @@ class Magoo implements MaskManagerInterface
      *
      * @return Magoo
      */
-    public function pushByRegexMask($regex, $replacement = '*')
+    public function pushByRegexMask(string $regex, string $replacement = '*')
     {
         $uniqueId = uniqid('mask-regex-');
 
@@ -60,11 +55,11 @@ class Magoo implements MaskManagerInterface
      * Adds (or rewrites) Mask\Email mask
      *
      * @param string $localReplacement Character to replace local part of email
-     * @param string $domainReplacement Character to replace domain part of email
+     * @param string|null $domainReplacement Character to replace domain part of email
      *
      * @return Magoo
      */
-    public function pushEmailMask($localReplacement = '*', $domainReplacement = null)
+    public function pushEmailMask(string $localReplacement = '*', ?string $domainReplacement = null)
     {
         $params = [
             'localReplacement' => null,
@@ -106,14 +101,8 @@ class Magoo implements MaskManagerInterface
     /**
      * {@inheritDoc}
      */
-    public function getMasked($input)
+    public function getMasked(string $input)
     {
-        if (!is_string($input)) {
-            throw new InvalidArgumentException(
-                'Message to be masked needs to string - ' . gettype($input) . ' passed.'
-            );
-        }
-
         if (empty($this->masks)) {
             return $input;
         }

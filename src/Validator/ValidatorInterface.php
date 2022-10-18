@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Pachico\Magoo\Validator;
 
 /**
@@ -12,5 +14,5 @@ interface ValidatorInterface
      *
      * @return bool If sequence is valid Luhn
      */
-    public function isValid($input);
+    public function isValid($input): bool;
 }

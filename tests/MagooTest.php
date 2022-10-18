@@ -4,17 +4,16 @@ namespace Pachico\MagooTest;
 
 use Pachico\Magoo\Magoo;
 
-class MagooTest extends \PHPUnit_Framework_TestCase
+class MagooTest extends TestCase
 {
+    protected Magoo $sut;
 
-    protected $sut;
-
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->sut = new Magoo();
     }
 
-    public function testChainedMasksShouldWorkAsExpected()
+    public function testChainedMasksShouldWorkAsExpected(): void
     {
         // Arrange
         $customMask = new Mask\CustomMask(['replacement' => 'bar']);
@@ -32,7 +31,7 @@ class MagooTest extends \PHPUnit_Framework_TestCase
         );
     }
 
-    public function testPushingMasksReturnMagooInstance()
+    public function testPushingMasksReturnMagooInstance(): void
     {
         // Arrange
         // Act
@@ -44,7 +43,7 @@ class MagooTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf('Pachico\Magoo\Magoo', $this->sut->reset());
     }
 
-    public function testResetCleansAnyPreviouslySetMask()
+    public function testResetCleansAnyPreviouslySetMask(): void
     {
         // Arrange
         $this->sut->pushCreditCardMask('*')->pushEmailMask('*', '_')->reset();
@@ -55,7 +54,7 @@ class MagooTest extends \PHPUnit_Framework_TestCase
         $this->assertSame($string, $output);
     }
 
-    public function testEmailMaskRedactsEmailsCorrectly()
+    public function testEmailMaskRedactsEmailsCorrectly(): void
     {
         // Arrange
         $this->sut->pushEmailMask('*');
@@ -65,7 +64,7 @@ class MagooTest extends \PHPUnit_Framework_TestCase
         $this->assertSame('My email is ***@trenneman.com and my credit card is 6011792594656742', $output);
     }
 
-    public function testCreditcardMaskRedactsCCCorrectly()
+    public function testCreditcardMaskRedactsCCCorrectly(): void
     {
         // Arrange
         $this->sut->pushCreditCardMask('*');
@@ -75,29 +74,26 @@ class MagooTest extends \PHPUnit_Framework_TestCase
         $this->assertSame('My email is roy@trenneman.com and my credit card is ************6742', $output);
     }
 
-    /**
-     * @return array
-     */
-    public function dataProviderRegexMaskRedactsStringsCorrectly()
+    public function dataProviderRegexMaskRedactsStringsCorrectly(): array
     {
         return [
-            ['/[a-zA-Z]+/m', 'This is 1 string', '**** ** 1 ******'],
+            [
+                '/[a-zA-Z]+/m',
+                'This is 1 string',
+                '**** ** 1 ******',
+            ],
             [
                 '',
                 'This 1 string that will not be masked since there is no valid regex',
-                'This 1 string that will not be masked since there is no valid regex'
+                'This 1 string that will not be masked since there is no valid regex',
             ]
         ];
     }
 
     /**
      * @dataProvider dataProviderRegexMaskRedactsStringsCorrectly
-     *
-     * @param string $regex
-     * @param string $input
-     * @param string $expectedOutput
      */
-    public function testRegexMaskRedactsStringsCorrectly($regex, $input, $expectedOutput)
+    public function testRegexMaskRedactsStringsCorrectly(string $regex, string $input, string $expectedOutput): void
     {
         // Arrange
         $this->sut->reset()->pushByRegexMask($regex, '*');
@@ -107,7 +103,7 @@ class MagooTest extends \PHPUnit_Framework_TestCase
         $this->assertSame($expectedOutput, $output);
     }
 
-    public function testNoMaskReturnsUnalteredInput()
+    public function testNoMaskReturnsUnalteredInput(): void
     {
         // Arrange
         $string = 'My email is roy@trenneman.com and my credit card is 6011792594656742';
@@ -117,7 +113,7 @@ class MagooTest extends \PHPUnit_Framework_TestCase
         $this->assertSame($string, $output);
     }
 
-    public function testCustomMaskAreCalledIfPassed()
+    public function testCustomMaskAreCalledIfPassed(): void
     {
         // Arrange
         $customMask = new Mask\CustomMask(['replacement' => 'bar']);
@@ -130,14 +126,12 @@ class MagooTest extends \PHPUnit_Framework_TestCase
 
     /**
      * Test that only strings can be passed to getMasked
-     *
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage Message to be masked needs to string - array passed.
      */
-    public function testGetMaskedThrowsExceptionIfWrongInput()
+    public function testGetMaskedThrowsExceptionIfWrongInput(): void
     {
+        $this->expectException(\TypeError::class);
         // Arrange
-        
+
         // Act
         $this->sut->getMasked(['Not a string']);
 

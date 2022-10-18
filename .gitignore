@@ -1,2 +1,4 @@
-vendor
-build
+/vendor
+/build
+.phpunit.result.cache
+composer.lock

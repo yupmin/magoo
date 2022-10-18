@@ -1,8 +1,9 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Pachico\Magoo;
 
-use Pachico\Magoo\MagooArray;
 use Psr\Log\LoggerInterface;
 
 /**
@@ -11,25 +12,12 @@ use Psr\Log\LoggerInterface;
  */
 class MagooLogger implements LoggerInterface
 {
-    /**
-     * @var LoggerInterface
-     */
-    private $logger;
+    private LoggerInterface $logger;
 
-    /**
-     * @var MaskManagerInterface
-     */
-    private $maskManager;
+    private MaskManagerInterface $maskManager;
 
-    /**
-     * @var MagooArray
-     */
-    private $magooArray;
+    private MagooArray $magooArray;
 
-    /**
-     * @param LoggerInterface $logger
-     * @param MaskManagerInterface $maskManager
-     */
     public function __construct(LoggerInterface $logger, MaskManagerInterface $maskManager)
     {
         $this->logger = $logger;
@@ -37,27 +25,20 @@ class MagooLogger implements LoggerInterface
         $this->magooArray = new MagooArray($maskManager);
     }
 
-    /**
-     * @return LoggerInterface
-     */
-    public function getLogger()
+    public function getLogger(): LoggerInterface
     {
         return $this->logger;
     }
 
-    /**
-     * @return MaskManagerInterface
-     */
-    public function getMaskManager()
+    public function getMaskManager(): MaskManagerInterface
     {
         return $this->maskManager;
     }
 
     /**
      * @param string $message
-     * @param array $context
      */
-    public function emergency($message, array $context = array())
+    public function emergency($message, array $context = [])
     {
         $maskedArguments = $this->maskLogArguments($message, $context);
         call_user_func_array([$this->logger, 'emergency'], $maskedArguments);
@@ -65,9 +46,8 @@ class MagooLogger implements LoggerInterface
 
     /**
      * @param string $message
-     * @param array $context
      */
-    public function alert($message, array $context = array())
+    public function alert($message, array $context = [])
     {
         $maskedArguments = $this->maskLogArguments($message, $context);
         call_user_func_array([$this->logger, 'alert'], $maskedArguments);
@@ -75,9 +55,8 @@ class MagooLogger implements LoggerInterface
 
     /**
      * @param string $message
-     * @param array $context
      */
-    public function critical($message, array $context = array())
+    public function critical($message, array $context = [])
     {
         $maskedArguments = $this->maskLogArguments($message, $context);
         call_user_func_array([$this->logger, 'critical'], $maskedArguments);
@@ -85,9 +64,8 @@ class MagooLogger implements LoggerInterface
 
     /**
      * @param string $message
-     * @param array $context
      */
-    public function error($message, array $context = array())
+    public function error($message, array $context = [])
     {
         $maskedArguments = $this->maskLogArguments($message, $context);
         call_user_func_array([$this->logger, 'error'], $maskedArguments);
@@ -95,9 +73,8 @@ class MagooLogger implements LoggerInterface
 
     /**
      * @param string $message
-     * @param array $context
      */
-    public function warning($message, array $context = array())
+    public function warning($message, array $context = [])
     {
         $maskedArguments = $this->maskLogArguments($message, $context);
         call_user_func_array([$this->logger, 'warning'], $maskedArguments);
@@ -105,9 +82,8 @@ class MagooLogger implements LoggerInterface
 
     /**
      * @param string $message
-     * @param array $context
      */
-    public function notice($message, array $context = array())
+    public function notice($message, array $context = [])
     {
         $maskedArguments = $this->maskLogArguments($message, $context);
         call_user_func_array([$this->logger, 'notice'], $maskedArguments);
@@ -115,9 +91,8 @@ class MagooLogger implements LoggerInterface
 
     /**
      * @param string $message
-     * @param array $context
      */
-    public function info($message, array $context = array())
+    public function info($message, array $context = [])
     {
         $maskedArguments = $this->maskLogArguments($message, $context);
         call_user_func_array([$this->logger, 'info'], $maskedArguments);
@@ -125,9 +100,8 @@ class MagooLogger implements LoggerInterface
 
     /**
      * @param string $message
-     * @param array $context
      */
-    public function debug($message, array $context = array())
+    public function debug($message, array $context = [])
     {
         $maskedArguments = $this->maskLogArguments($message, $context);
         call_user_func_array([$this->logger, 'debug'], $maskedArguments);
@@ -136,9 +110,8 @@ class MagooLogger implements LoggerInterface
     /**
      * @param string $level
      * @param string $message
-     * @param array $context
      */
-    public function log($level, $message, array $context = array())
+    public function log($level, $message, array $context = [])
     {
         $maskedArguments = $this->maskLogArguments($message, $context);
         array_unshift($maskedArguments, $level);
@@ -147,7 +120,6 @@ class MagooLogger implements LoggerInterface
 
     /**
      * @param string $message
-     * @param array $context
      *
      * @return array Masked arguments
      */

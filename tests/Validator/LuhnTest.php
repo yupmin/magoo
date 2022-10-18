@@ -1,24 +1,23 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Pachico\MagooTest\Validator;
 
 use Pachico\Magoo\Validator\Luhn;
-use PHPUnit_Framework_TestCase;
+use Pachico\MagooTest\TestCase;
 
-class LuhnTest extends PHPUnit_Framework_TestCase
+class LuhnTest extends TestCase
 {
-    /**
-     * @var Luhn
-     */
-    private $sut;
+    private Luhn $sut;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
         $this->sut = new Luhn();
     }
 
-    public function dataProviderCCNumbersExpectedOutput()
+    public function dataProviderCCNumbersExpectedOutput(): array
     {
         return [
             [4143835214588534, true],
@@ -75,10 +74,9 @@ class LuhnTest extends PHPUnit_Framework_TestCase
     /**
      * @dataProvider dataProviderCCNumbersExpectedOutput
      *
-     * @param string $input
-     * @param bool $expectedOutput
+     * @param string|int $input
      */
-    public function testIsValidDetectsCorrectlyCCNumbers($input, $expectedOutput)
+    public function testIsValidDetectsCorrectlyCCNumbers($input, bool $expectedOutput): void
     {
         // Act
         $output = $this->sut->isValid($input);

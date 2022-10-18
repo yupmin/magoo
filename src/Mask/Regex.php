@@ -7,19 +7,10 @@ namespace Pachico\Magoo\Mask;
  */
 class Regex implements MaskInterface
 {
-    /**
-     * @var string
-     */
-    protected $replacement = '*';
+    protected string $replacement = '*';
 
-    /**
-     * @var string
-     */
-    protected $regex = '';
+    protected string $regex = '';
 
-    /**
-     * @param array $params
-     */
     public function __construct(array $params = [])
     {
         if (isset($params['replacement']) && is_string($params['replacement'])) {
@@ -31,12 +22,7 @@ class Regex implements MaskInterface
         }
     }
 
-    /**
-     * @param string $string
-     *
-     * @return string
-     */
-    public function mask($string)
+    public function mask(string $string): string
     {
         $replacements = [];
 

@@ -4,30 +4,26 @@ namespace Pachico\MagooTest;
 
 use Pachico\Magoo\Magoo;
 use Pachico\Magoo\MagooLogger;
-use PHPUnit_Framework_TestCase;
+use Psr\Log\LoggerInterface;
 use Psr\Log\LogLevel;
 
-class MagooLoggerTest extends PHPUnit_Framework_TestCase
+class MagooLoggerTest extends TestCase
 {
+    private MagooLogger $sut;
+    private LoggerInterface $logger;
+    private Magoo $magoo;
 
-    /**
-     * @var MagooLogger
-     */
-    private $sut;
-    private $logger;
-    private $magoo;
-
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 
-        $this->logger = $this->getMockForAbstractClass('Psr\Log\LoggerInterface');
+        $this->logger = $this->getMockForAbstractClass(LoggerInterface::class);
         $this->magoo = new Magoo();
         $this->magoo->pushEmailMask();
         $this->sut = new MagooLogger($this->logger, $this->magoo);
     }
 
-    public function dataProviderLogLevels()
+    public function dataProviderLogLevels(): array
     {
         return [
             [LogLevel::ALERT],
@@ -44,7 +40,7 @@ class MagooLoggerTest extends PHPUnit_Framework_TestCase
     /**
      * @dataProvider dataProviderLogLevels
      */
-    public function testLoggingLogLevelsCallMagooAndRedactsContent($logLevel)
+    public function testLoggingLogLevelsCallMagooAndRedactsContent(string $logLevel): void
     {
         // Arrange
         $rawString = 'My email is foo@bar.com.';
@@ -53,19 +49,19 @@ class MagooLoggerTest extends PHPUnit_Framework_TestCase
         // Act
         call_user_func_array([$this->sut, $logLevel], [$rawString, [$rawString]]);
     }
-    
-    public function testGetLoggerReturnsLogger()
+
+    public function testGetLoggerReturnsLogger(): void
     {
         // Act
         $output = $this->sut->getLogger();
         // Assert
         $this->assertSame($this->logger, $output);
     }
-    
+
     /**
      * @dataProvider dataProviderLogLevels
      */
-    public function testLogCallMagooAndRedactsContent($logLevel)
+    public function testLogCallMagooAndRedactsContent($logLevel): void
     {
         // Arrange
         $rawString = 'My email is foo@bar.com.';
@@ -74,8 +70,8 @@ class MagooLoggerTest extends PHPUnit_Framework_TestCase
         // Act
         $this->sut->log($logLevel, $rawString, [$rawString]);
     }
-    
-    public function testGetMaskManagerReturnsMagoo()
+
+    public function testGetMaskManagerReturnsMagoo(): void
     {
         // Act
         $output = $this->sut->getMaskManager();
