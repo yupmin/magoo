@@ -1,5 +1,5 @@
 {
-    "name": "pachico/magoo",
+    "name": "yupmin/magoo",
     "type": "library",
     "description": "PHP library to mask (redact) credit card numbers, emails and more.",
     "license": "MIT",
