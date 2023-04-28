@@ -74,7 +74,7 @@ class MagooTest extends TestCase
         $this->assertSame('My email is roy@trenneman.com and my credit card is ************6742', $output);
     }
 
-    public function dataProviderRegexMaskRedactsStringsCorrectly(): array
+    public static function dataProviderRegexMaskRedactsStringsCorrectly(): array
     {
         return [
             [

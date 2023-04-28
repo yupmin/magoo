@@ -17,7 +17,7 @@ class LuhnTest extends TestCase
         $this->sut = new Luhn();
     }
 
-    public function dataProviderCCNumbersExpectedOutput(): array
+    public static function dataProviderCCNumbersExpectedOutput(): array
     {
         return [
             [4143835214588534, true],

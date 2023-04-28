@@ -16,7 +16,7 @@ class RegexTest extends TestCase
         $this->sut = new Regex(['replacement' => '*', 'regex' => '(\d+)']);
     }
 
-    public function dataProviderIntputExpectedOutput(): array
+    public static function dataProviderIntputExpectedOutput(): array
     {
         return [
             [

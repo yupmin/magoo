@@ -16,7 +16,7 @@ class EmailTest extends TestCase
         $this->sut = new Email(['localReplacement' => '*', 'domainReplacement' => '*']);
     }
 
-    public function dataProviderInputExpectedOutput(): array
+    public static function dataProviderInputExpectedOutput(): array
     {
         return [
             [

@@ -19,7 +19,7 @@ class CreditCardTest extends TestCase
         $this->sut = new Creditcard();
     }
 
-    public function dataProviderInputExpectedOutput(): array
+    public static function dataProviderInputExpectedOutput(): array
     {
         return [
             [

@@ -23,7 +23,7 @@ class MagooLoggerTest extends TestCase
         $this->sut = new MagooLogger($this->logger, $this->magoo);
     }
 
-    public function dataProviderLogLevels(): array
+    public static function dataProviderLogLevels(): array
     {
         return [
             [LogLevel::ALERT],

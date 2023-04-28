@@ -35,7 +35,7 @@
     },
     "minimum-stability": "stable",
     "require": {
-        "php": "^7.4|^8.0|^8.1",
+        "php": "^7.4|^8.0|^8.1|^8.2",
         "psr/log": "^1.0|^2.0"
     },
     "scripts": {
