@@ -14,7 +14,7 @@ interface MaskManagerInterface
      *
      * @return MaskManagerInterface
      */
-    public function reset();
+    public function reset(): self;
 
     /**
      * Adds a custom mask instance
@@ -23,7 +23,7 @@ interface MaskManagerInterface
      *
      * @return MaskManagerInterface
      */
-    public function pushMask(MaskInterface $customMask);
+    public function pushMask(MaskInterface $customMask): self;
 
     /**
      * Applies all masks to a given string
@@ -32,5 +32,5 @@ interface MaskManagerInterface
      *
      * @return string Masked string
      */
-    public function getMasked(string $input);
+    public function getMasked(string $input): string;
 }

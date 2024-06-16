@@ -18,11 +18,11 @@ class Magoo implements MaskManagerInterface
      *
      * @return Magoo
      */
-    public function pushCreditCardMask(string $replacement = '*')
+    public function pushCreditCardMask(string $replacement = '*'): self
     {
         $this->masks['mask-creditcard'] = new Mask\Creditcard(
             [
-                'replacement' => (string) $replacement
+                'replacement' => $replacement
             ]
         );
 
@@ -37,7 +37,7 @@ class Magoo implements MaskManagerInterface
      *
      * @return Magoo
      */
-    public function pushByRegexMask(string $regex, string $replacement = '*')
+    public function pushByRegexMask(string $regex, string $replacement = '*'): self
     {
         $uniqueId = uniqid('mask-regex-');
 
@@ -59,7 +59,7 @@ class Magoo implements MaskManagerInterface
      *
      * @return Magoo
      */
-    public function pushEmailMask(string $localReplacement = '*', ?string $domainReplacement = null)
+    public function pushEmailMask(string $localReplacement = '*', ?string $domainReplacement = null): self
     {
         $params = [
             'localReplacement' => null,
@@ -80,7 +80,7 @@ class Magoo implements MaskManagerInterface
     /**
      * {@inheritDoc}
      */
-    public function pushMask(Mask\MaskInterface $customMask)
+    public function pushMask(Mask\MaskInterface $customMask): self
     {
         $uniqueId = uniqid('mask-custom-');
         $this->masks[$uniqueId] = $customMask;
@@ -91,7 +91,7 @@ class Magoo implements MaskManagerInterface
     /**
      * {@inheritDoc}
      */
-    public function reset()
+    public function reset(): self
     {
         $this->masks = [];
 
@@ -101,7 +101,7 @@ class Magoo implements MaskManagerInterface
     /**
      * {@inheritDoc}
      */
-    public function getMasked(string $input)
+    public function getMasked(string $input): string
     {
         if (empty($this->masks)) {
             return $input;
