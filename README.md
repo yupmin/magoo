@@ -2,7 +2,7 @@
 
 [![Testing](https://github.com/yupmin/magoo/actions/workflows/testing.yml/badge.svg)](https://github.com/yupmin/magoo/actions/workflows/testing.yml)
 
-original package [pachico/magoo](https://github.com/pachico/magoo) is abandoned. this is for php 7.1,8.0,8.1
+original package [pachico/magoo](https://github.com/pachico/magoo) is abandoned. this is for php 7.4,8.0,8.1,8.2,8.3
 
 Magoo is a PHP library that will mask sensitive data in strings. 
 Built-in masks use regex to find credit card numbers, emails, etc. and will mask only those, leaving the rest of the strings intact. 
