@@ -45,7 +45,7 @@
     },
     "require-dev": {
         "codacy/coverage": "dev-master",
-        "phpunit/phpunit": "*",
+        "phpunit/phpunit": "^9.0|^10.0",
         "squizlabs/php_codesniffer": "^2.7|^3.7"
     },
     "config": {
